@@ -2,62 +2,67 @@ angle = 0;
 r = 0;
 g = 0;
 b = 0;
-h = 60;
+h = 20;
 x = 20;
 f=800;
 
+x1 = 0;
+x2 = 1;
+xn = 0;
+
 function setup() {
-	//createCanvas(windowWidth, windowHeight);
+	
 	createCanvas(900, 800, WEBGL);
-	//background(100);
-	//colorMode(RGB, 200);
-	frameRate(30);
-	angle = PI/2;
-	rotateX(angle);
+	frameRate(20);
+	angle = TWO_PI/2;
+	
 }
 
 function draw() {
-	rotateX(angle);
-	//translate(0,0,150);
-	background(50);
-	//translate(width/2, height/2);
-	//rectMode(CENTER);
+	
+	for(i=0;i<150;i++){
+		rotateX(angle);
+		rotateY(-angle);
+	}
+	
+	
+	background(250);
+	
+	//translate(0 , 0, 0);
+	rectMode(CENTER);
 	
 	//ambientLight(255, 0, 0);
 	pointLight(r, g, b, 0, -200, 0);
 	//let h = map(sin(angle), -1, 1, 0, 100);
 	
+	xn = fibo(x1,x2);
+		
+	push();
+	//translate(x + 5, 0, 0);
+	ambientMaterial(255);
+	box(x + 10, xn + 10, h +xn);
+	pop();
+
 	
-	for(x =0; x<f; x+=10){
-		//translate(10, 0);
-		push();
-		translate(x, 0);
-		
-		//fill(r,g,b);
-		//stroke(2);
-		//normalMaterial();
-		//rect(x-width/2 , 0, 9, h);
-		
-		ambientMaterial(255);
-		box(10, x+ 10, h);
-		pop();
-		
-		push();
-		translate(-x, 0);
-		
-		//fill(r,g,b);
-		//rect(x-width/2 , 0, 9, h);
-		
-		ambientMaterial(255);
-		box(10, x+ 10, h);
-		pop();
-	}
-	//f+=.5;
-	//map(h, );
-	
-	angle +=.1;
+	angle +=.01;
 	
 	r +=2;
 	g +=3;
 	b +=1;
+	
+	x += 10
+	
+	temp = x2;
+	x2 = xn;
+	x1 = temp;
+	
+	print(xn);
+	
+	if(xn > 10000){
+		 noLoop();
+	}
+}
+
+function fibo(x1, x2){
+	return x1 + x2;
 }
